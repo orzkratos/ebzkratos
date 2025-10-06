@@ -1,3 +1,10 @@
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/orzkratos/ebzkratos/release.yml?branch=main&label=BUILD)](https://github.com/orzkratos/ebzkratos/actions?query=branch%3Amain)
+[![GoDoc](https://pkg.go.dev/badge/github.com/orzkratos/ebzkratos)](https://pkg.go.dev/github.com/orzkratos/ebzkratos)
+[![Coverage Status](https://img.shields.io/coveralls/github/orzkratos/ebzkratos/main.svg)](https://coveralls.io/github/orzkratos/ebzkratos?branch=main)
+[![Supported Go Versions](https://img.shields.io/badge/Go-1.25+-lightgrey.svg)](https://go.dev/)
+[![GitHub Release](https://img.shields.io/github/release/orzkratos/ebzkratos.svg)](https://github.com/orzkratos/ebzkratos/releases)
+[![Go Report Card](https://goreportcard.com/badge/github.com/orzkratos/ebzkratos)](https://goreportcard.com/report/github.com/orzkratos/ebzkratos)
+
 # ebzkratos
 
 Go error wrapper for Kratos framework that solves nil interface problems.
@@ -10,16 +17,16 @@ Go error wrapper for Kratos framework that solves nil interface problems.
 [中文说明](README.zh.md)
 <!-- TEMPLATE (EN) END: LANGUAGE NAVIGATION -->
 
-## Key Features
+## Main Features
 
 🎯 **Safe Error Wrapping**: Avoids Go's (*T)(nil) != nil problem by not implementing error interface  
-🔄 **Type Conversion**: Safe conversion between generic errors and Ebz instances with proper nil handling  
-📋 **Comprehensive API**: NewEbz, New, As, Is, FromError, From functions for complete error handling
+🔄 **Type Conversion**: Safe conversion between generic errors and Ebz instances with correct nil handling  
+📋 **Comprehensive API**: NewEbz, New, As, Is, FromError, From functions providing complete error handling
 
-## Install
+## Installation
 
 ```bash
-go install github.com/orzkratos/ebzkratos@latest
+go get github.com/orzkratos/ebzkratos
 ```
 
 ## Usage
@@ -43,7 +50,7 @@ func main() {
     
     // Safe nil checking - no (*T)(nil) != nil problems
     if ebz != nil {
-        // Process error safely
+        // Process error content in safe mode
         println("Error:", ebz.Erk.Message)
     }
 }
@@ -71,9 +78,9 @@ func processError(err error) {
 
 ```go
 func compareErrors(ebz1, ebz2 *ebzkratos.Ebz) {
-    // Safe equality check with nil handling
+    // Check errors equivalence with nil handling
     if ebzkratos.Is(ebz1, ebz2) {
-        println("Errors are equivalent")
+        println("Errors are same type")
     }
 }
 ```
@@ -89,7 +96,7 @@ func criticalOperation() {
     // Assert no error - panic if ebz is not nil
     ebzmust.Done(ebz)
     
-    // Continue with result safely
+    // Continue with result in safe mode
     processResult(result)
 }
 ```
@@ -98,7 +105,7 @@ func criticalOperation() {
 
 **STRUCTURAL INVARIANT**: `ebz != nil ⇒ ebz.Erk must be non-nil`
 
-This constraint is enforced through `must.Full` validation in all constructors, ensuring:
+This constraint is enforced via `must.Full` validation in constructors, ensuring:
 
 - No ambiguous intermediate states
 - Simplified error handling logic  
@@ -107,16 +114,16 @@ This constraint is enforced through `must.Full` validation in all constructors, 
 
 ## API Reference
 
-### Constructor Functions
+### Creation Functions
 
 - `NewEbz(erk *errors.Error) *Ebz` - Creates error wrapper instance with validation
-- `New(erk *errors.Error) *Ebz` - Concise constructor alias
+- `New(erk *errors.Error) *Ebz` - Concise creation alias
 
 ### Conversion Functions  
 
 - `As(err error) (*Ebz, bool)` - Type conversion from generic error to Ebz
 - `FromError(err error) *Ebz` - Transforms generic error into safe Ebz instance
-- `From(err error) *Ebz` - Alias for FromError function
+- `From(err error) *Ebz` - Concise alias of FromError
 
 ### Comparison Functions
 
@@ -124,11 +131,11 @@ This constraint is enforced through `must.Full` validation in all constructors, 
 
 ### Assert Functions
 
-- `ebzmust.Done(ebz *Ebz)` - Assert zero-error convention with panic on breach
+- `ebzmust.Done(ebz *Ebz)` - Checks no-error convention with panic when violated
 - `ebzmust.Must(ebz *Ebz)` - Demands perfect execution with fail-fast termination
 
 <!-- TEMPLATE (EN) BEGIN: STANDARD PROJECT FOOTER -->
-<!-- VERSION 2025-08-28 08:33:43.829511 +0000 UTC -->
+<!-- VERSION 2025-09-26 07:39:27.188023 +0000 UTC -->
 
 ## 📄 License
 
@@ -140,15 +147,15 @@ MIT License. See [LICENSE](LICENSE).
 
 Contributions are welcome! Report bugs, suggest features, and contribute code:
 
-- 🐛 **Found a bug?** Open an issue on GitHub with reproduction steps
+- 🐛 **Found a mistake?** Open an issue on GitHub with reproduction steps
 - 💡 **Have a feature idea?** Create an issue to discuss the suggestion
 - 📖 **Documentation confusing?** Report it so we can improve
-- 🚀 **Need new features?** Share your use cases to help us understand requirements
-- ⚡ **Performance issue?** Help us optimize by reporting slow operations
+- 🚀 **Need new features?** Share the use cases to help us understand requirements
+- ⚡ **Performance issue?** Help us optimize through reporting slow operations
 - 🔧 **Configuration problem?** Ask questions about complex setups
-- 📢 **Follow project progress?** Watch the repo for new releases and features
-- 🌟 **Success stories?** Share how this package improved your workflow
-- 💬 **General feedback?** All suggestions and comments are welcome
+- 📢 **Follow project progress?** Watch the repo to get new releases and features
+- 🌟 **Success stories?** Share how this package improved the workflow
+- 💬 **Feedback?** We welcome suggestions and comments
 
 ---
 
@@ -156,17 +163,17 @@ Contributions are welcome! Report bugs, suggest features, and contribute code:
 
 New code contributions, follow this process:
 
-1. **Fork**: Fork the repo on GitHub (using the webpage interface).
+1. **Fork**: Fork the repo on GitHub (using the webpage UI).
 2. **Clone**: Clone the forked project (`git clone https://github.com/yourname/repo-name.git`).
 3. **Navigate**: Navigate to the cloned project (`cd repo-name`)
 4. **Branch**: Create a feature branch (`git checkout -b feature/xxx`).
-5. **Code**: Implement your changes with comprehensive tests
+5. **Code**: Implement the changes with comprehensive tests
 6. **Testing**: (Golang project) Ensure tests pass (`go test ./...`) and follow Go code style conventions
-7. **Documentation**: Update documentation for user-facing changes and use meaningful commit messages
+7. **Documentation**: Update documentation to support client-facing changes and use significant commit messages
 8. **Stage**: Stage changes (`git add .`)
 9. **Commit**: Commit changes (`git commit -m "Add feature xxx"`) ensuring backward compatible code
 10. **Push**: Push to the branch (`git push origin feature/xxx`).
-11. **PR**: Open a pull request on GitHub (on the GitHub webpage) with detailed description.
+11. **PR**: Open a merge request on GitHub (on the GitHub webpage) with detailed description.
 
 Please ensure tests pass and include relevant documentation updates.
 
@@ -174,7 +181,7 @@ Please ensure tests pass and include relevant documentation updates.
 
 ## 🌟 Support
 
-Welcome to contribute to this project by submitting pull requests and reporting issues.
+Welcome to contribute to this project via submitting merge requests and reporting issues.
 
 **Project Support:**
 
@@ -183,7 +190,7 @@ Welcome to contribute to this project by submitting pull requests and reporting 
 - 📝 **Write tech blogs** about development tools and workflows - we provide content writing support
 - 🌟 **Join the ecosystem** - committed to supporting open source and the (golang) development scene
 
-**Happy Coding with this package!** 🎉
+**Have Fun Coding with this package!** 🎉🎉🎉
 
 <!-- TEMPLATE (EN) END: STANDARD PROJECT FOOTER -->
 

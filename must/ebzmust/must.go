@@ -3,7 +3,6 @@
 //
 // ebzmust: 生产环境 Ebz 错误处理的断言函数
 // 提供带 panic 和日志的快速失败断言
-
 package ebzmust
 
 import (
